@@ -1,30 +1,33 @@
 import { ref } from 'vue'
 import router from '@/router'
 
+const isAuthenticated = ref(false)
+const user = ref({})
+
 const dbUser = [
 {
     username: 'admin',
     password: 'admin',
     name: 'Admin',
     role: 'admin',
-    email: 'admin@cool-company,com',
+    email: 'admin@cool-company.com',
 },
 {
     username: 'user',
     password: 'user',
     name: 'User',
     role: 'user',
-    email: 'user@cool-company,com',
+    email: 'user@cool-company.com',
 },
 ]
 
-const isAuthenticated = ref(false)
-const user = ref({})
+
 
 export const useAuth = () => {
     const login = (username, password) => {
-        const dbUser = dbUser.find((u) => u.username == username && u.password == password)
-        if (dbUser) {
+        const dbuser = dbUser.find((u) => u.username == username && u.password == password)
+        if (dbuser) {
+            const {name, role, email, username} = dbuser
             isAuthenticated.value = true
             user.value = { name, role, email, username }
             return true
